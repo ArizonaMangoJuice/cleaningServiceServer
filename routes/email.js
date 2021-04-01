@@ -31,8 +31,6 @@ router.get('/', async function (req, res, next) {
   } catch(err){
     res.json(err);
   }
-
-  console.log(emailResponse);
 });
 
 module.exports = router;
