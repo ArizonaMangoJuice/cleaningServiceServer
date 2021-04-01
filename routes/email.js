@@ -12,22 +12,24 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-console.log(process.env.SERVEREMAIL, process.env.SERVERPASSWORD)
+// console.log(process.env.SERVEREMAIL, process.env.SERVERPASSWORD)
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
+  const {firstName, lastName, email} = req.body
+
   var mailOptions = {
     from: process.env.SERVEREMAIL,
-    to: 'isaellizama@gmail.com',
-    subject: 'Sending Email using node .js',
+    to: email,
+    subject: `${firstName} ${lastName} has an enquiry`,
     text: 'THAT WAS EASY!'
   }
 
-  let email = await transporter.sendMail(mailOptions);
+  let emailResponse = await transporter.sendMail(mailOptions);
 
-  console.log(email);
+  console.log(emailResponse);
 
-  res.json(email.response);
+  res.json(emailResponse.response);
 
   res.send('respond with a resource');
 });
