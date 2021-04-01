@@ -16,7 +16,7 @@ var transporter = nodemailer.createTransport({
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-  const {firstName, lastName, email} = req.body
+  const { firstName, lastName, email } = req.body
 
   var mailOptions = {
     from: process.env.SERVEREMAIL,
@@ -25,13 +25,14 @@ router.get('/', async function (req, res, next) {
     text: 'THAT WAS EASY!'
   }
 
-  let emailResponse = await transporter.sendMail(mailOptions);
+  try {
+    let emailResponse = await transporter.sendMail(mailOptions);
+    res.json(emailResponse.response);
+  } catch(err){
+    res.json(err);
+  }
 
   console.log(emailResponse);
-
-  res.json(emailResponse.response);
-
-  res.send('respond with a resource');
 });
 
 module.exports = router;
