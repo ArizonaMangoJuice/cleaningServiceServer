@@ -17,7 +17,7 @@ transporter.use('compile', inlineCss());
 // console.log(process.env.SERVEREMAIL, process.env.SERVERPASSWORD)
 
 /* GET users listing. */
-router.get('/', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
   const { firstName, lastName, email, phone } = req.body
 
   var mailOptions = {
